@@ -1,0 +1,9 @@
+[ { "_class" : "org.wn.model.User",
+ "name" : "Dave",
+  "lastName" : "Matthews",
+  "email" : "dave@germany.de" },
+  
+  { "_class" : "org.wn.model.User",
+  "name" : "Carter",
+  "lastName" : "Beauford",
+  "email" : "carter@germany.de"} ]
