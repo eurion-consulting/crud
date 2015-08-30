@@ -33,37 +33,41 @@ import org.springframework.http.MediaType;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.web.WebAppConfiguration;
+import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.RequestBuilder;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 import org.wn.config.SpringConfig;
-import org.wn.config.TestConfig;
 import org.wn.exception.UserAlreadyExistsException;
 import org.wn.exception.UserNotFoundException;
 import org.wn.model.User;
 import org.wn.service.UserService;
+import org.wn.service.UserServiceImpl;
 import org.wn.util.TestUtil;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestConfig.class, SpringConfig.class})
+@ContextConfiguration(classes = {SpringConfig.class})
 @WebAppConfiguration
 public class UserControllerTest {
 
+	@Autowired
+	private WebApplicationContext webApplicationContext;
 	private MockMvc mockMvc;
 	
 	@Autowired
-	private UserService userServiceMock;
-	
-	@Autowired
-	private WebApplicationContext webApplicationContext;
+	private UserController userController;
+	private UserService userServiceMock;	
 	
 	private User user;
-	
+		
 	@Before
 	public void setUp(){
 				
+		this.userServiceMock = Mockito.mock(UserServiceImpl.class);
+		ReflectionTestUtils.invokeSetterMethod(userController, "setUserService", userServiceMock);
+		
 		Mockito.reset(userServiceMock);
 
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -110,7 +114,7 @@ public class UserControllerTest {
         
         when(userServiceMock.find(1L)).thenReturn(user);
  
-        mockMvc.perform(get("/users/{id}", 1))
+        mockMvc.perform(get("/users/{id}", 1L))
             .andExpect(status().isOk())
             .andExpect(content().contentType(MediaType.APPLICATION_JSON_VALUE))
             .andExpect(jsonPath("$.name", is(DEFAULT_USER_FIRST_NAME)))

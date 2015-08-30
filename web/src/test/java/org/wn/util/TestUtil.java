@@ -8,9 +8,9 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class TestUtil {
 
-	public static final String DEFAULT_USER_FIRST_NAME = "Johny";
-	public static final String DEFAULT_USER_LAST_NAME = "Johny";
-	public static final String DEFAULT_USER_EMAIL = "jonhy@test.do";
+	public static final String DEFAULT_USER_FIRST_NAME = "John";
+	public static final String DEFAULT_USER_LAST_NAME = "Doe";
+	public static final String DEFAULT_USER_EMAIL = "jonhy@usa.us";
 	
 	public static User buildUser(){
 		return buildUser(DEFAULT_USER_FIRST_NAME, DEFAULT_USER_LAST_NAME, DEFAULT_USER_EMAIL);

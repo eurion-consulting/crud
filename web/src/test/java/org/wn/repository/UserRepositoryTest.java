@@ -23,7 +23,6 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 import org.springframework.test.context.web.WebAppConfiguration;
 import org.wn.config.SpringConfig;
-import org.wn.config.TestConfig;
 import org.wn.model.User;
 import org.wn.util.ResponseUtil;
 import org.wn.util.TestUtil;
@@ -32,9 +31,8 @@ import com.github.springtestdbunit.DbUnitTestExecutionListener;
 import com.github.springtestdbunit.annotation.DatabaseSetup;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration(classes = {TestConfig.class, SpringConfig.class})
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class,
-    DbUnitTestExecutionListener.class })
+@ContextConfiguration(classes = {SpringConfig.class})
+@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class, DbUnitTestExecutionListener.class })
 @WebAppConfiguration
 public class UserRepositoryTest {
 
@@ -46,7 +44,6 @@ public class UserRepositoryTest {
 	public void saveAndRetrieveUser() {
 
 	    User user = TestUtil.buildUser();
-
 	    User added = repository.save(user);
 	    
 	    assertThat(added, notNullValue());
@@ -60,7 +57,7 @@ public class UserRepositoryTest {
 	@Test
 	@DatabaseSetup("large-users-set.xml")
 	public void retrieveUser() {
-		User user = repository.findByEmail("daniel.velev@gmail.com");
+		User user = repository.findByEmail("daniel.velev@bulgaria.bg");
 		assertThat(user, notNullValue());
 	}
 	

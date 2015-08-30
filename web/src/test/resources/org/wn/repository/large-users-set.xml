@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataset>
-    <users name="Daniel" lastName="Velev" email="daniel.velev@gmail.com" dateOfBirth="1983-08-24"  />
-    <users name="Peter" lastName="Ivanov" email="petar.ivanov@gmail.com" dateOfBirth="1982-08-28"  />
+    <users name="Daniel" lastName="Velev" email="daniel.velev@bulgaria.bg" dateOfBirth="1983-08-24"  />
+    <users name="Peter" lastName="Ivanov" email="petar.ivanov@bulgaria.bg" dateOfBirth="1982-08-28"  />
 </dataset>

@@ -2,12 +2,10 @@ package org.wn.service;
 
 import java.util.List;
 
-import org.springframework.stereotype.Service;
 import org.wn.exception.UserAlreadyExistsException;
 import org.wn.exception.UserNotFoundException;
 import org.wn.model.User;
 
-@Service
 public interface UserService {
 
 	public abstract List<User> list();
