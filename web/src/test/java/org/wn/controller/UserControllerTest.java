@@ -64,7 +64,6 @@ public class UserControllerTest {
 	@Before
 	public void setUp(){
 				
-		//userServiceMock = Mockito.mock(UserService.class);
 		Mockito.reset(userServiceMock);
 
 		this.mockMvc = MockMvcBuilders.webAppContextSetup(webApplicationContext).build();
@@ -245,5 +244,5 @@ public class UserControllerTest {
 	        
 		verifyZeroInteractions(userServiceMock);
 	}
-		
+	
 }
