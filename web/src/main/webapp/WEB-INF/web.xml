@@ -42,14 +42,15 @@
   -->
  <error-page>
  	<error-code>404</error-code>
- 	<location>/WEB-INF/error.jsp</location>
+ 	<location>/WEB-INF/404.jsp</location>
  </error-page>
  
  <error-page>
- 	<location>/general_error.html</location>
+ 	<location>/error.html</location>
  </error-page>
-  
+  <!-- 
  <listener>
    <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
  </listener>
+ -->
 </web-app>
