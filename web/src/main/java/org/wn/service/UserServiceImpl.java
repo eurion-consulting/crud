@@ -38,8 +38,12 @@ public class UserServiceImpl implements UserService {
 			logger.warn("page index is Null. Retrieve all the users.");
 			return list();
 		}
-		Pageable pageSpecification = new PageRequest(pageIndex, ResponseUtil.NUMBER_OF_PERSONS_PER_PAGE); 
+		
+		int page = pageIndex - 1; //as it is 0-based
+		Pageable pageSpecification = new PageRequest(page, ResponseUtil.NUMBER_OF_PERSONS_PER_PAGE); 
 		Page<User> requestedPage = repository.findAll(pageSpecification);
+		
+		logger.debug("Get all users count = {}", requestedPage.getNumberOfElements());
 		return requestedPage.getContent();
 	}
 	
@@ -58,7 +62,8 @@ public class UserServiceImpl implements UserService {
 		if(user == null){
 			throw new IllegalArgumentException("User cannot be saved. Null object passed.");
 		}
-		if(repository.exists(user.getId())){
+		if(repository.exists(user.getId()) || repository.findByEmail(user.getEmail()) != null){
+			logger.error("User {} already exists", user);
 			throw new UserAlreadyExistsException("User already exists!");
 		}
 		return repository.save(user);
@@ -67,16 +72,17 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User update(User user, Long userId) throws UserNotFoundException{
 		
-		if(repository.exists(userId)){
+		if(! repository.exists(userId)){
 			throw new UserNotFoundException("User cannot be found in order to be updated!");
 		}
+		
 		return repository.save(user);
 	}
 	
 	@Override
 	public void remove(Long userId) throws UserNotFoundException{
 		
-		if(repository.exists(userId)){
+		if(! repository.exists(userId)){
 			throw new UserNotFoundException("User cannot be found in order to be deleted!");
 		}
 		repository.delete(userId);
